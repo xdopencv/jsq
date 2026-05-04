@@ -1,0 +1,35 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build exe
+        run: gcc -o xiaosuan.exe xiaosuan.c -lm
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: xiaosuan-windows
+          path: xiaosuan.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build executable
+        run: gcc -o xiaosuan xiaosuan.c -lm
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: xiaosuan-linux
+          path: xiaosuan
